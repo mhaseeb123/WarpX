@@ -1478,8 +1478,8 @@ WarpX::ReadExternalFieldFromFile (
 #endif
 
 #if defined(WARPX_DIM_RZ)
-                const amrex::Array4<double> fc_array(FC_data, {0,0,0}, {extent0, extent2, extent1}, 1);
-                const double
+                amrex::Array4<double> fc_array(FC_data, {0,0,0}, {extent0, extent2, extent1}, 1);
+                double
                     f00 = fc_array(0, iz  , ir  ),
                     f01 = fc_array(0, iz  , ir+1),
                     f10 = fc_array(0, iz+1, ir  ),

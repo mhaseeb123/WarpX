@@ -184,10 +184,11 @@ class CapacitiveDischargeExample(object):
             self.max_steps = 50
             self.diag_steps = 5
             self.mcc_subcycling_steps = 2
-            self.rng = np.random.default_rng(23094290)
         else:
             self.mcc_subcycling_steps = None
-            self.rng = np.random.default_rng()
+
+        if self.dsmc:
+            self.rng = np.random.default_rng(23094290)
 
         self.ion_density_array = np.zeros(self.nz + 1)
 

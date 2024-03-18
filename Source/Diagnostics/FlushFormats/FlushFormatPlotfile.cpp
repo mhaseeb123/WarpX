@@ -303,7 +303,7 @@ FlushFormatPlotfile::WriteWarpXHeader(
 
         warpx.GetPartContainer().WriteHeader(HeaderFile);
 
-        const MultiParticleContainer& mypc = warpx.GetPartContainer();
+        MultiParticleContainer& mypc = warpx.GetPartContainer();
         const int n_species = mypc.nSpecies();
         for (int i=0; i<n_species; i++)
         {

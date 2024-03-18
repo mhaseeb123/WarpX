@@ -47,7 +47,6 @@ try:
     import cupy as cp
 except ImportError:
     cp = None
-from .LoadThirdParty import load_cupy
 
 try:
     from mpi4py import MPI as mpi
@@ -517,12 +516,6 @@ class _MultiFABWrapper(object):
             if not isinstance(ic   , slice) or len(global_shape) < 4: global_shape[3:3] = [1]
             value3d.shape = global_shape
 
-            if libwarpx.libwarpx_so.Config.have_gpu:
-                # check if cupy is available for use
-                xp, cupy_status = load_cupy()
-                if cupy_status is not None:
-                    libwarpx.amr.Print(cupy_status)
-
         starts = [ixstart, iystart, izstart]
         stops = [ixstop, iystop, izstop]
         for mfi in self.mf:
@@ -533,7 +526,7 @@ class _MultiFABWrapper(object):
                     slice_value = value3d[global_slices]
                     if libwarpx.libwarpx_so.Config.have_gpu:
                         # Copy data from host to device
-                        slice_value = xp.asarray(slice_value)
+                        slice_value = cp.asarray(slice_value)
                     mf_arr[block_slices] = slice_value
                 else:
                     mf_arr[block_slices] = value
